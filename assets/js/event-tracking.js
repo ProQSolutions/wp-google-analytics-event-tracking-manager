@@ -182,7 +182,7 @@ var ga_event_tracking = (function($) {
           }
 
           //Bind normal events
-          $(document).delegate(eventParams.selector,eventParams.bindEvent,function(e) {
+          $(eventParams.selector).bindFirst(eventParams.bindEvent, function(e) {
 
             var event_args = self.prepare_ga_event_args(eventParams, e.target);
             //If a previous event has not prevented default, then we can assume we need to take the user to the href url
