@@ -9,32 +9,7 @@ Author URI: http://proqsolutions.com
 
 if(!is_admin()) {
     //Sample init
-	$event_tracking_config = [
-	  'is_debugging' => 'true',
-	  'events' => [
-		  [
-		    'selector'=> 'h1 a',
-		    'bindEvent'=> 'click',
-		    'eventCategory'=> 'Click Event',
-		    'eventAction'=> 'Clicked',
-		    'eventLabel'=> '{text}',
-		  ],
-		  [
-		    'selector'=> 'h1.widget-title',
-		    'bindEvent'=> 'mouseenter',
-		    'eventCategory'=> 'Mouse hover',
-		    'eventAction'=> 'hovered',
-		    'eventLabel'=> '{text}',
-		  ],
-		  [
-		    'selector'=> '.site-info a',
-		    'bindEvent'=> 'in_view',
-		    'eventCategory'=> 'Visibility',
-		    'eventAction'=> 'in_view',
-		    'eventLabel'=> '{href}',
-		  ],
-	  ]
-	];
+	$event_tracking_config = require('config.php');
 
   wp_register_script('jquery-bind-first', plugins_url( '/assets/js/vendor/jquery.bind-first-0.2.3.min.js', __FILE__ ), array('jquery'), false, true);
   wp_register_script('proq-ga-events', plugins_url( '/assets/js/event-tracking.js', __FILE__ ), array('jquery', 'jquery-bind-first'), false, true);
