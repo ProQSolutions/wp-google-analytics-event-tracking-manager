@@ -171,18 +171,12 @@ var ga_event_tracking = (function($) {
 
         default:
 
-          var domElements;
-
           try{ //Try catch in case selector is invalid
-            domElements = $(eventParams.selector);
+            var domElements = $(eventParams.selector);
           } catch(exception) { return false; } //console log this maybe
 
-          if(!domElements) {
-            return; //no elements found on page
-          }
-
           //Bind normal events
-          $(eventParams.selector).bindFirst(eventParams.bindEvent, function(e) {
+          $(document).delegateFirst(eventParams.selector, eventParams.bindEvent, function(e) {
 
             var event_args = self.prepare_ga_event_args(eventParams, e.target);
             //If a previous event has not prevented default, then we can assume we need to take the user to the href url
