@@ -175,12 +175,11 @@ var ga_event_tracking = (function($) {
             var domElements = $(eventParams.selector);
           } catch(exception) { return false; } //console log this maybe
 
-          //Bind normal events
-          $(document).delegateFirst(eventParams.selector, eventParams.bindEvent, function(e) {
+          var handler = function(e) {
 
             var event_args = self.prepare_ga_event_args(eventParams, e.target);
             //If a previous event has not prevented default, then we can assume we need to take the user to the href url
-            if(typeof $(e.target).attr('href') !== "undefined" && $(e.target).attr('href').length && eventParams.bindEvent === 'click' && !e.isDefaultPrevented()) {
+            if(typeof $(e.target).attr('href') !== "undefined" && $(e.target).attr('href').length > 1 && eventParams.bindEvent === 'click' && !e.isDefaultPrevented()) {
 
               //Don't navigate right away
               e.preventDefault();
@@ -196,7 +195,25 @@ var ga_event_tracking = (function($) {
             //Now send event
             self.track_event(event_args);
 
-          });
+          };
+
+          // console.log('eventParams', eventParams);
+
+          //Bind normal events
+          if (eventParams.bind && eventParams.bind === 'true') { // bind
+            if (eventParams.first && eventParams.first === 'false') {
+              $(eventParams.selector).bind(eventParams.bindEvent, handler);
+            } else {
+              $(eventParams.selector).bindFirst(eventParams.bindEvent, handler);
+            }
+          } else { // delegate
+            if (eventParams.first && eventParams.first === 'false') {
+              $(document).delegate(eventParams.selector, eventParams.bindEvent, handler);
+            } else {
+              $(document).delegateFirst(eventParams.selector, eventParams.bindEvent, handler);
+            }
+          }
+
           break;
       }
 
@@ -252,7 +269,9 @@ if (Array.prototype.filter === undefined) {
   };
 }
 
-if(typeof proq_ga_events !== "undefined") {
-  var is_debugging = proq_ga_events.is_debugging;
-  ga_event_tracking.init(proq_ga_events.events, is_debugging);
-}
+jQuery(document).ready(function() {
+  if(typeof proq_ga_events !== "undefined") {
+    var is_debugging = proq_ga_events.is_debugging;
+    ga_event_tracking.init(proq_ga_events.events, is_debugging);
+  }
+});
