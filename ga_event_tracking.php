@@ -29,16 +29,15 @@ class WP_GA_Event_Tracking_Plugin {
 		public function setup_local_vars() {
 			if ( !is_admin() ) {
 
-				$event_tracking_config = require('config.php');
+				// $event_tracking_config = require('config.php');
 
-				$event_tracking_config_new = array(
+				$event_tracking_config = array(
 					'is_debugging' => 'true',
 					'events' => array(),
 				);
 
 				$events = get_field('events', 'option');
-				error_log( 'Event Count (Above): ' . count($events) );
-
+				// error_log( 'Event Count (Above): ' . count($events) );
 				foreach($events as $event) {
 					$new_event = array(
 						'selector' => $event['selector'],
@@ -49,13 +48,13 @@ class WP_GA_Event_Tracking_Plugin {
 						'bind' => $event['bind'],
 						'first' => $event['first'],
 					);
-					array_push( $event_tracking_config_new['events'], $new_event );
+					array_push( $event_tracking_config['events'], $new_event );
 				}
 
 			  wp_register_script('jquery-bind-first', plugins_url( '/assets/js/vendor/jquery.bind-first-0.2.3.min.js', __FILE__ ), array('jquery'), false, true);
 			  wp_register_script('proq-ga-events', plugins_url( '/assets/js/event-tracking.js', __FILE__ ), array('jquery', 'jquery-bind-first'), false, true);
 
-			  wp_localize_script('proq-ga-events', 'proq_ga_events', $event_tracking_config_new);
+			  wp_localize_script('proq-ga-events', 'proq_ga_events', $event_tracking_config);
 
 			  wp_enqueue_script('proq-ga-events');
 				wp_enqueue_script('jquery-bind-first');
