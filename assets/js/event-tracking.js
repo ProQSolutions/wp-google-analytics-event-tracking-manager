@@ -271,7 +271,7 @@ if (Array.prototype.filter === undefined) {
 
 jQuery(document).ready(function() {
   if(typeof proq_ga_events !== "undefined") {
-    var is_debugging = proq_ga_events.is_debugging;
+    var is_debugging = (proq_ga_events.is_debugging === '1') ? true : false;
     ga_event_tracking.init(proq_ga_events.events, is_debugging);
   }
 });

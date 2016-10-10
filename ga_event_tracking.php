@@ -32,9 +32,13 @@ class WP_GA_Event_Tracking_Plugin {
 				// $event_tracking_config = require('config.php');
 
 				$event_tracking_config = array(
-					'is_debugging' => 'true',
+					'is_debugging' => 'false',
 					'events' => array(),
 				);
+
+        $debug = get_field('debug_mode', 'option');
+        $debug = ( !empty($debug) && $debug[0] === 'enabled' ) ? 1 : 0;
+        $event_tracking_config['is_debugging'] = $debug;
 
 				$events = get_field('events', 'option');
 				// error_log( 'Event Count (Above): ' . count($events) );
@@ -120,6 +124,7 @@ class WP_GA_Event_Tracking_Plugin {
 							'type' => 'checkbox',
 							'required' => 0,
 							'choices' => array (
+                'enabled' => 'Enable Debug Mode',
 							),
 							'default_value' => '',
 							'layout' => 'horizontal',
