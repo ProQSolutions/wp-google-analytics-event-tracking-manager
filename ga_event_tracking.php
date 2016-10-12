@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WordPress GA Event Tracking
+Plugin Name: Event Tracking Manager for Google Analytics
 Description: Makes GA Event tracking easier
 Version: 2.0.0
 Author: Pro Q Solutions

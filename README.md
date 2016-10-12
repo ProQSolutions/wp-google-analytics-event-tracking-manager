@@ -1,4 +1,4 @@
-# WordPress Google Analytics Event Tracking Manager Plugin
+# Event Tracking Manager Plugin for Google Analytics
 This plugin is exactly what it says it is: a plugin for managing Google Analytics event tracking in WordPress.
 
 ## Setup Notes
