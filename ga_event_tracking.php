@@ -13,7 +13,6 @@ class WP_GA_Event_Tracking_Plugin {
 
     // Hook into the admin menu
     add_action( 'admin_menu', array( $this, 'create_plugin_settings_page' ) );
-    add_action( 'admin_init', array( $this, 'add_acf_variables' ) );
 
     add_action( 'init', array( $this, 'include_acf' ), 5 );
     add_action( 'init', array( $this, 'setup_local_vars' ), 10 );
